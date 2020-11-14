@@ -16,7 +16,7 @@ COPY . .
 
 RUN ionic build
 
-EXPOSE 80
+EXPOSE 80 8080
 
 FROM nginx:alpine
 COPY --from=ionic /usr/src/app/www /usr/share/nginx/html
