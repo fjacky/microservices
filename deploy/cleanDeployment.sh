@@ -9,7 +9,7 @@ cd "${0%/*}"
 . ../set_env.sh
 
 # retrieve current cluster config
-aws eks --region eu-central-1 update-kubeconfig --name fjacky-udagram
+aws eks --region $(echo $AWS_REGION) update-kubeconfig --name $(echo $AWS_EKS_CLUSTER)
 
 # clean up previous deployments
 kubectl delete all --all
@@ -47,6 +47,9 @@ kubectl apply -f userServiceDeployment.yaml
 kubectl apply -f userServiceService.yaml
 kubectl apply -f feedServiceDeployment.yaml
 kubectl apply -f feedServiceService.yaml
+
+# add auto scaling to feed service
+kubectl autoscale deployment feed-service --cpu-percent=50 --min=1 --max=2
 
 # cleanup
 echo "\n\nDone! The site can be reached at $UDAGRAM_HOST"
