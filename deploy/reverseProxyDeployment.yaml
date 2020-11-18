@@ -1,9 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: reverseproxy
+  namespace: default
   labels:
     app: reverseproxy
-  name: reverseproxy
 spec:
   replicas: 1
   selector:

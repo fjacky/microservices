@@ -21,6 +21,9 @@ kubectl create secret generic aws-credentials \
   --from-file=$HOME/.aws/credentials
 kubectl create secret generic postgres-credentials --from-literal=username=$(echo $POSTGRES_USERNAME) --from-literal=password=$(echo $POSTGRES_PASSWORD)
 
+# install metrics server
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.6/components.yaml
+
 # deploy reverse proxy
 kubectl apply -f reverseProxyDeployment.yaml
 kubectl apply -f reverseProxyService.yaml
