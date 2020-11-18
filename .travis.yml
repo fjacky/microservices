@@ -18,9 +18,10 @@ script:
   - docker build -t fjacky/udagram-feed-service udagram-feed-service/
   - docker build -t fjacky/udagram-user-service udagram-user-service/
   - docker build -t fjacky/udagram-frontend udagram-frontend/
-
+  - docker build -t fjacky/reverse-proxy reverse-proxy/
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push fjacky/udagram-feed-service
   - docker push fjacky/udagram-user-service
   - docker push fjacky/udagram-frontend
+  - docker push fjacky/reverse-proxy

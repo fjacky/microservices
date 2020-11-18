@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: feed-service
+  labels:
+    app: feed-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: feed-service
+  template:
+    metadata:
+      labels:
+        app: feed-service
+    spec:
+      volumes:
+      - name: aws-credentials
+        secret:
+          secretName: aws-credentials
+      containers:
+      - name: udagram-feed-service
+        image: fjacky/udagram-feed-service
+        ports:
+        - containerPort: 8080
+        env:
+        - name: URL
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: URL
+        - name: AWS_BUCKET
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: AWS_BUCKET
+        - name: AWS_PROFILE
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: AWS_PROFILE
+        - name: AWS_REGION
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: AWS_REGION
+        - name: JWT_SECRET
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: JWT_SECRET
+        - name: POSTGRES_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: POSTGRES_DATABASE
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: POSTGRES_HOST
+        - name: POSTGRES_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: postgres-credentials
+              key: username
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-credentials
+              key: password
+        volumeMounts:
+        - name: aws-credentials
+          readOnly: true
+          mountPath: "/root/.aws"

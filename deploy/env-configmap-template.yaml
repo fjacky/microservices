@@ -1,0 +1,13 @@
+# template file, must replace the URL field before applying
+apiVersion: v1
+kind: ConfigMap
+data:
+  AWS_BUCKET: {AWS_BUCKET}
+  AWS_PROFILE: {AWS_PROFILE}
+  AWS_REGION: {AWS_REGION}
+  JWT_SECRET: {JWT_SECRET}
+  POSTGRES_HOST: {POSTGRES_HOST}
+  POSTGRES_DATABASE: {POSTGRES_DATABASE}
+  URL: http://{URL}
+metadata:
+  name: env-config
