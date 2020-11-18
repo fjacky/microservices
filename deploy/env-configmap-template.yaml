@@ -1,4 +1,4 @@
-# template file, must replace the URL field before applying
+# template file, {} templates must be replaced before deployment to EKS cluster
 apiVersion: v1
 kind: ConfigMap
 data:
