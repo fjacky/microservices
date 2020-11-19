@@ -51,9 +51,10 @@ kubectl apply -f userServiceService.yaml
 kubectl apply -f feedServiceDeployment.yaml
 kubectl apply -f feedServiceService.yaml
 
-# add auto scaling to feed service
+echo "\n\nThe site can be reached at $UDAGRAM_HOST. Sleeping a minute before applying autoscaling to feed-service...\n"
+
+sleep 60
 kubectl autoscale deployment feed-service --cpu-percent=50 --min=1 --max=2
 
-# cleanup
-echo "\n\nDone! The site can be reached at $UDAGRAM_HOST"
+echo "\n\nAutoscaling applied. Finished!"
 unset UDAGRAM_HOST
